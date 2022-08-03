@@ -7,7 +7,7 @@
 public static class WriteableStreamExtensions
 {
     /// <summary>
-    /// Writes a sequence of bytes to the current <see cref="IWriteableStream"/> and advances the current <see cref="IWriteableStream.Position"/>
+    /// Writes a sequence of bytes to the current <see cref="IWriteableStream"/> and advances the current <see cref="IContainedStream.Position"/>
     /// within this <see cref="IWriteableStream"/> by the number of bytes written.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>
@@ -21,7 +21,7 @@ public static class WriteableStreamExtensions
         stream.Write(buffer: buffer.AsSpan()[offset..(offset + count)]);
 
     /// <summary>
-    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="IWriteableStream.Position"/>
+    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="IContainedStream.Position"/>
     /// within this <see cref="IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>
@@ -31,7 +31,7 @@ public static class WriteableStreamExtensions
         stream.WriteAsync(buffer: buffer,
                           cancellationToken: CancellationToken.None);
     /// <summary>
-    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="IWriteableStream.Position"/>
+    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="IContainedStream.Position"/>
     /// within this <see cref="IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>
@@ -45,7 +45,7 @@ public static class WriteableStreamExtensions
         stream.WriteAsync(buffer: buffer.AsMemory()[offset..(offset + count)],
                           cancellationToken: CancellationToken.None);
     /// <summary>
-    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="IWriteableStream.Position"/>
+    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="IContainedStream.Position"/>
     /// within this <see cref="IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>

@@ -14,5 +14,9 @@ public interface IContainedStream :
     /// <summary>
     /// Gets the current position of the cursor in the <see cref="IContainedStream"/>.
     /// </summary>
-    public Int64 Position { get; }
+    public Int64 Position
+    {
+        get;
+        set;
+    }
 }
