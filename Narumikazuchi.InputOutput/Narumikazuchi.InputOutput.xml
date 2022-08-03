@@ -1,0 +1,539 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Narumikazuchi.InputOutput</name>
+    </assembly>
+    <members>
+        <member name="T:Narumikazuchi.InputOutput.ReadableStreamExtensions">
+            <summary>
+            Contains extensions for <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> objects, to reduce the clutter of methods
+            that need to be implemented, yet still give the consumer more options to use a reduced signature.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyTo``1(Narumikazuchi.InputOutput.IReadableStream,``0)">
+            <summary>
+            Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
+            to the destination <typeparamref name="TStream"/>.
+            </summary>
+            <remarks>
+            Be aware that the copying starts at the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            of the cursor and continues until the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.
+            This also means that the cursor will be at the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>,
+            once the operation finishes.
+            </remarks>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsync``1(Narumikazuchi.InputOutput.IReadableStream,``0)">
+            <summary>
+            Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
+            to the destination <typeparamref name="TStream"/> asynchronosly.
+            </summary>
+            <remarks>
+            Be aware that the copying starts at the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            of the cursor and continues until the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.
+            This also means that the cursor will be at the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>,
+            once the operation finishes.
+            </remarks>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsync``1(Narumikazuchi.InputOutput.IReadableStream,``0,System.Threading.CancellationToken)">
+            <summary>
+            Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
+            to the destination <typeparamref name="TStream"/> asynchronosly.
+            </summary>
+            <remarks>
+            Be aware that the copying starts at the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            of the cursor and continues until the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.
+            This also means that the cursor will be at the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>,
+            once the operation finishes.
+            </remarks>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsync``1(Narumikazuchi.InputOutput.IReadableStream,``0,System.Int32)">
+            <summary>
+            Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
+            to the destination <typeparamref name="TStream"/> asynchronosly.
+            </summary>
+            <remarks>
+            Be aware that the copying starts at the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            of the cursor and continues until the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.
+            This also means that the cursor will be at the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>,
+            once the operation finishes.
+            </remarks>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
+            <param name="bufferSize">The size of the individual chunks that should be copied at once.</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.Read(Narumikazuchi.InputOutput.IReadableStream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and advances the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">
+            An array of bytes. When this method returns, the buffer contains the specified byte array with the values between offset and 
+            (offset + count - 1) replaced by the bytes read from the current source.
+            </param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
+            <param name="count">The maximum number of bytes to be read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
+            <returns>
+            The total number of bytes read into the <paramref name="buffer"/>. This can be less than the number of bytes allocated in the 
+            <paramref name="buffer"/> if that many bytes are not currently available, or zero (0) if the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> has been reached.
+            </returns>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsync(Narumikazuchi.InputOutput.IReadableStream,System.Memory{System.Byte})">
+            <summary>
+            Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>, advances the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/> 
+            within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write the data into.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsync(Narumikazuchi.InputOutput.IReadableStream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>, advances the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/> 
+            within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write the data into.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
+            <param name="count">The maximum number of bytes to be read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsync(Narumikazuchi.InputOutput.IReadableStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>, advances the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/> 
+            within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write the data into.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
+            <param name="count">The maximum number of bytes to be read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.StreamExtensions">
+            <summary>
+            Extends the abstract <see cref="T:System.IO.Stream"/> class to allow easy wrapping.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.StreamExtensions.AsReadableStream(System.IO.Stream)">
+            <summary>
+            Wraps the current <see cref="T:System.IO.Stream"/> into an <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <returns>A <see cref="T:Narumikazuchi.InputOutput.ReadableStreamWrapper"/> that allows the <see cref="T:System.IO.Stream"/> to be used as <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</returns>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.StreamExtensions.AsSeekableStream(System.IO.Stream)">
+            <summary>
+            Wraps the current <see cref="T:System.IO.Stream"/> into an <see cref="T:Narumikazuchi.InputOutput.ISeekableStream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <returns>A <see cref="T:Narumikazuchi.InputOutput.SeekableStreamWrapper"/> that allows the <see cref="T:System.IO.Stream"/> to be used as <see cref="T:Narumikazuchi.InputOutput.ISeekableStream"/>.</returns>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.StreamExtensions.AsTimeoutStream(System.IO.Stream)">
+            <summary>
+            Wraps the current <see cref="T:System.IO.Stream"/> into an <see cref="T:Narumikazuchi.InputOutput.ITimeoutStream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <returns>A <see cref="T:Narumikazuchi.InputOutput.TimeoutStreamWrapper"/> that allows the <see cref="T:System.IO.Stream"/> to be used as <see cref="T:Narumikazuchi.InputOutput.ITimeoutStream"/>.</returns>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.StreamExtensions.AsWriteableStream(System.IO.Stream)">
+            <summary>
+            Wraps the current <see cref="T:System.IO.Stream"/> into an <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <returns>A <see cref="T:Narumikazuchi.InputOutput.WriteableStreamWrapper"/> that allows the <see cref="T:System.IO.Stream"/> to be used as <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</returns>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.WriteableStreamExtensions">
+            <summary>
+            Contains extensions for <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> objects, to reduce the clutter of methods
+            that need to be implemented, yet still give the consumer more options to use a reduced signature.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.Write(Narumikazuchi.InputOutput.IWriteableStream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and advances the current <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">An array of bytes. This method copies count bytes from buffer to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+            <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableStream,System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write data from.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableStream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write data from.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+            <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write data from.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+            <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.IContainedStream">
+            <summary>
+            Represents an <see cref="T:Narumikazuchi.InputOutput.IStream"/> that has a known length.
+            </summary>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.IContainedStream.Length">
+            <summary>
+            Gets the amount of bytes in the <see cref="T:Narumikazuchi.InputOutput.IContainedStream"/>.
+            </summary>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.IContainedStream.Position">
+            <summary>
+            Gets the current position of the cursor in the <see cref="T:Narumikazuchi.InputOutput.IContainedStream"/>.
+            </summary>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.IReadableStream">
+            <summary>
+            Represents an <see cref="T:Narumikazuchi.InputOutput.IStream"/> that can be read from.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IReadableStream.CopyTo``1(``0,System.Int32)">
+            <summary>
+            Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
+            to the destination <typeparamref name="TStream"/>.
+            </summary>
+            <remarks>
+            Be aware that the copying starts at the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            of the cursor and continues until the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.
+            This also means that the cursor will be at the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>,
+            once the operation finishes.
+            </remarks>
+            <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
+            <param name="bufferSize">The size of the individual chunks that should be copied at once.</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IReadableStream.CopyToAsync``1(``0,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
+            to the destination <typeparamref name="TStream"/> asynchronosly.
+            </summary>
+            <remarks>
+            Be aware that the copying starts at the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            of the cursor and continues until the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.
+            This also means that the cursor will be at the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>,
+            once the operation finishes.
+            </remarks>
+            <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
+            <param name="bufferSize">The size of the individual chunks that should be copied at once.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IReadableStream.Read(System.Span{System.Byte})">
+            <summary>
+            Reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and advances the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/>
+            within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read.
+            </summary>
+            <param name="buffer">
+            A region of memory. When this method returns, the contents of this region are replaced by the bytes read from the current source.
+            </param>
+            <returns>
+            The total number of bytes read into the <paramref name="buffer"/>. This can be less than the number of bytes allocated in the 
+            <paramref name="buffer"/> if that many bytes are not currently available, or zero (0) if the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> has been reached.
+            </returns>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IReadableStream.ReadAsync(System.Memory{System.Byte},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>, advances the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/> 
+            within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
+            </summary>
+            <param name="buffer">The region of memory to write the data into.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IReadableStream.ReadByte(System.Nullable{System.Byte}@)">
+            <summary>
+            Reads a byte from the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and advances the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Position"/> within the stream by one byte.
+            </summary>
+            <param name="byte">The next unsigned byte in the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
+            <returns><see langword="true"/> if there is a next byte; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.ISeekableStream">
+            <summary>
+            Represents an <see cref="T:Narumikazuchi.InputOutput.IStream"/> which supports seeking.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ISeekableStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Sets the <see cref="P:Narumikazuchi.InputOutput.ISeekableStream.Position"/> in the current <see cref="T:Narumikazuchi.InputOutput.ISeekableStream"/> depending
+            on the <paramref name="offset"/> and <paramref name="origin"/>.
+            </summary>
+            <param name="offset">A byte offset relative to the <paramref name="origin"/> parameter.</param>
+            <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain the new <see cref="P:Narumikazuchi.InputOutput.ISeekableStream.Position"/>.</param>
+            <returns>The new <see cref="P:Narumikazuchi.InputOutput.ISeekableStream.Position"/> within the current <see cref="T:Narumikazuchi.InputOutput.ISeekableStream"/>.</returns>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.ISeekableStream.Position">
+            <summary>
+            Gets the current position of the cursor in the <see cref="T:Narumikazuchi.InputOutput.ISeekableStream"/>.
+            </summary>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.IStream">
+            <summary>
+            Represents a basic stream of data in the form of <see cref="T:System.Byte"/>[].
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IStream.Close">
+            <summary>
+            Closes the <see cref="T:Narumikazuchi.InputOutput.IStream"/> and ensures that any managed or unmanaged resources will be released.
+            </summary>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.ITimeoutStream">
+            <summary>
+            Represents an <see cref="T:Narumikazuchi.InputOutput.IStream"/> that can timeout.
+            </summary>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.ITimeoutStream.ReadTimeout">
+            <summary>
+            Gets or sets a value, in milliseconds, that determines how long the <see cref="T:Narumikazuchi.InputOutput.ITimeoutStream"/> will attempt to read before timing out.
+            </summary>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.ITimeoutStream.WriteTimeout">
+            <summary>
+            Gets or sets a value, in milliseconds, that determines how long the <see cref="T:Narumikazuchi.InputOutput.ITimeoutStream"/> will attempt to write before timing out.
+            </summary>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.IWriteableStream">
+            <summary>
+            Represents an <see cref="T:Narumikazuchi.InputOutput.IStream"/> that can be written to.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.Flush">
+            <summary>
+            Clears all buffers for this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and causes any buffered data to be written to the underlying device.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.FlushAsync">
+            <summary>
+            Asynchronously clears all buffers for this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and causes any buffered data to be written to the underlying device.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.SetLength(System.Int64)">
+            <summary>
+            Sets the <see cref="P:Narumikazuchi.InputOutput.IContainedStream.Length"/> of the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.
+            </summary>
+            <param name="length">The desired length of the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> in bytes.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.Write(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and advances the current <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written.
+            </summary>
+            <param name="buffer">A region of memory. This method copies the contents of this region to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
+            </summary>
+            <param name="buffer">The region of memory to write data from.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.WriteByte(System.Byte)">
+            <summary>
+            Writes a byte to the current <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/> in the <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and advances the <see cref="P:Narumikazuchi.InputOutput.IWriteableStream.Position"/> 
+            within the <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by one byte.
+            </summary>
+            <param name="value">The byte to write to the <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.IWriteableStream.Position">
+            <summary>
+            Gets the current position of the cursor in the <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.
+            </summary>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.ReadableStreamWrapper">
+            <summary>
+            Wraps a <see cref="T:System.IO.Stream"/> that can be read from (<see cref="P:System.IO.Stream.CanRead"/>) into the
+            <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> interface.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.ReadableStreamWrapper"/> struct.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.ReadableStreamWrapper"/> struct.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.Close">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.CopyTo``1(``0,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.CopyToAsync``1(``0,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.Read(System.Span{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.ReadAsync(System.Memory{System.Byte},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.ReadByte(System.Nullable{System.Byte}@)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.ReadableStreamWrapper.Length">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.ReadableStreamWrapper.Position">
+            <inheritdoc/>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.SeekableStreamWrapper">
+            <summary>
+            Wraps a <see cref="T:System.IO.Stream"/> that can utilize seeking (<see cref="P:System.IO.Stream.CanSeek"/>) into the
+            <see cref="T:Narumikazuchi.InputOutput.ISeekableStream"/> interface.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.SeekableStreamWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.SeekableStreamWrapper"/> struct.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.SeekableStreamWrapper.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.SeekableStreamWrapper"/> struct.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.SeekableStreamWrapper.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.SeekableStreamWrapper.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.SeekableStreamWrapper.Close">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.SeekableStreamWrapper.Seek(System.Int64,System.IO.SeekOrigin)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.SeekableStreamWrapper.Length">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.SeekableStreamWrapper.Position">
+            <inheritdoc/>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.TimeoutStreamWrapper">
+            <summary>
+            Wraps a <see cref="T:System.IO.Stream"/> that can timeout (<see cref="P:System.IO.Stream.CanTimeout"/>) into the
+            <see cref="T:Narumikazuchi.InputOutput.ITimeoutStream"/> interface.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.TimeoutStreamWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.TimeoutStreamWrapper"/> struct.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.TimeoutStreamWrapper.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.TimeoutStreamWrapper"/> struct.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.TimeoutStreamWrapper.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.TimeoutStreamWrapper.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.TimeoutStreamWrapper.Close">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.TimeoutStreamWrapper.ReadTimeout">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.TimeoutStreamWrapper.WriteTimeout">
+            <inheritdoc/>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.WriteableStreamWrapper">
+            <summary>
+            Wraps a <see cref="T:System.IO.Stream"/> that can be writen to (<see cref="P:System.IO.Stream.CanWrite"/>) into the
+            <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> interface.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.WriteableStreamWrapper"/> struct.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.WriteableStreamWrapper"/> struct.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Close">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Flush">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.FlushAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteByte(System.Byte)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.SetLength(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.WriteableStreamWrapper.Length">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.WriteableStreamWrapper.Position">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
