@@ -59,7 +59,7 @@ partial struct ReadableStreamWrapper
                                               cancellationToken: cancellationToken);
         while (read != 0)
         {
-            await destination.WriteAsync(buffer: buffer,
+            await destination.WriteAsync(buffer: buffer.AsMemory()[..read],
                                          cancellationToken: cancellationToken);
             read = await m_Stream.ReadAsync(buffer: buffer,
                                               cancellationToken: cancellationToken);
@@ -109,7 +109,7 @@ partial struct ReadableStreamWrapper : IReadableStream
         Int32 read = m_Stream.Read(buffer: buffer);
         while (read != 0)
         {
-            destination.Write(buffer);
+            destination.Write(buffer.AsSpan()[..read]);
             read = m_Stream.Read(buffer: buffer);
         }
     }
