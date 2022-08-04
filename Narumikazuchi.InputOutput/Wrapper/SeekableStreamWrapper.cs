@@ -58,8 +58,11 @@ partial struct SeekableStreamWrapper : IAsyncDisposable
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
-        await m_Stream.DisposeAsync();
-        GC.SuppressFinalize(this);
+        if (m_Stream is not null)
+        {
+            await m_Stream.DisposeAsync();
+            GC.SuppressFinalize(this);
+        }
     }
 }
 
@@ -69,8 +72,11 @@ partial struct SeekableStreamWrapper : IDisposable
     /// <inheritdoc/>
     public void Dispose()
     {
-        m_Stream.Dispose();
-        GC.SuppressFinalize(this);
+        if (m_Stream is not null)
+        {
+            m_Stream.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }
 
@@ -83,16 +89,29 @@ partial struct SeekableStreamWrapper : ISeekableStream
 
     /// <inheritdoc/>
     public Int64 Seek(Int64 offset,
-                      SeekOrigin origin) =>
-        m_Stream.Seek(offset: offset,
-                      origin: origin);
+                      SeekOrigin origin)
+    {
+        if (m_Stream is null)
+        {
+            return 0;
+        }
+        else
+        {
+            return m_Stream.Seek(offset: offset,
+                                 origin: origin);
+        }
+    }
 
     /// <inheritdoc/>
     public Int64 Length
     {
         get
         {
-            if (m_Stream.CanSeek)
+            if (m_Stream is null)
+            {
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
             {
                 return m_Stream.Length;
             }
@@ -108,7 +127,11 @@ partial struct SeekableStreamWrapper : ISeekableStream
     {
         get
         {
-            if (m_Stream.CanSeek)
+            if (m_Stream is null)
+            {
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
             {
                 return m_Stream.Position;
             }
@@ -119,7 +142,8 @@ partial struct SeekableStreamWrapper : ISeekableStream
         }
         set
         {
-            if (m_Stream.CanSeek)
+            if (m_Stream is not null &&
+                m_Stream.CanSeek)
             {
                 if (value < 0)
                 {
@@ -130,7 +154,7 @@ partial struct SeekableStreamWrapper : ISeekableStream
                     m_Stream.Position = value;
                 }
             }
-            else
+            else if (m_Stream is not null)
             {
                 throw new ObjectDisposedException(null);
             }

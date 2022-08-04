@@ -75,8 +75,11 @@ partial struct ReadableStreamWrapper : IAsyncDisposable
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
-        await m_Stream.DisposeAsync();
-        GC.SuppressFinalize(this);
+        if (m_Stream is not null)
+        {
+            await m_Stream.DisposeAsync();
+            GC.SuppressFinalize(this);
+        }
     }
 }
 
@@ -86,8 +89,11 @@ partial struct ReadableStreamWrapper : IDisposable
     /// <inheritdoc/>
     public void Dispose()
     {
-        m_Stream.Dispose();
-        GC.SuppressFinalize(this);
+        if (m_Stream is not null)
+        {
+            m_Stream.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }
 
@@ -105,12 +111,15 @@ partial struct ReadableStreamWrapper : IReadableStream
     {
         ArgumentNullException.ThrowIfNull(destination);
 
-        Byte[] buffer = new Byte[bufferSize];
-        Int32 read = m_Stream.Read(buffer: buffer);
-        while (read != 0)
+        if (m_Stream is not null)
         {
-            destination.Write(buffer.AsSpan()[..read]);
-            read = m_Stream.Read(buffer: buffer);
+            Byte[] buffer = new Byte[bufferSize];
+            Int32 read = m_Stream.Read(buffer: buffer);
+            while (read != 0)
+            {
+                destination.Write(buffer.AsSpan()[..read]);
+                read = m_Stream.Read(buffer: buffer);
+            }
         }
     }
 
@@ -122,46 +131,79 @@ partial struct ReadableStreamWrapper : IReadableStream
     {
         ArgumentNullException.ThrowIfNull(destination);
 
-        if (m_Stream is MemoryStream memoryStream &&
-            destination is WriteableStreamWrapper wrapper &&
-            wrapper.m_Stream is MemoryStream destinationStream)
+        if (m_Stream is null)
         {
-            ReadOnlySpan<Byte> buffer = memoryStream.ToArray();
-
-            destinationStream.Write(buffer);
             return ValueTask.CompletedTask;
         }
         else
         {
-            return this.InternalCopyToAsync(destination: destination,
-                                            bufferSize: bufferSize,
-                                            cancellationToken: cancellationToken);
+            if (m_Stream is MemoryStream memoryStream &&
+                destination is WriteableStreamWrapper wrapper &&
+                wrapper.m_Stream is MemoryStream destinationStream)
+            {
+                ReadOnlySpan<Byte> buffer = memoryStream.ToArray();
+
+                destinationStream.Write(buffer);
+                return ValueTask.CompletedTask;
+            }
+            else
+            {
+                return this.InternalCopyToAsync(destination: destination,
+                                                bufferSize: bufferSize,
+                                                cancellationToken: cancellationToken);
+            }
         }
     }
 
     /// <inheritdoc/>
-    public Int32 Read(Span<Byte> buffer) =>
-        m_Stream.Read(buffer);
+    public Int32 Read(Span<Byte> buffer)
+    {
+        if (m_Stream is null)
+        {
+            return 0;
+        }
+        else
+        {
+            return m_Stream.Read(buffer);
+        }
+    }
 
     /// <inheritdoc/>
     public ValueTask<Int32> ReadAsync(Memory<Byte> buffer,
-                                      CancellationToken cancellationToken) =>
-        m_Stream.ReadAsync(buffer: buffer,
-                           cancellationToken: cancellationToken);
+                                      CancellationToken cancellationToken)
+    {
+        if (m_Stream is null)
+        {
+            return ValueTask.FromResult(0);
+        }
+        else
+        {
+            return m_Stream.ReadAsync(buffer: buffer,
+                                      cancellationToken: cancellationToken);
+        }
+    }
 
     /// <inheritdoc/>
     public Boolean ReadByte([NotNullWhen(true)] out Byte? value)
     {
-        Int32 result = m_Stream.ReadByte();
-        if (result != -1)
-        {
-            value = (Byte)result;
-            return true;
-        }
-        else
+        if (m_Stream is null)
         {
             value = default;
             return false;
+        }
+        else
+        {
+            Int32 result = m_Stream.ReadByte();
+            if (result != -1)
+            {
+                value = (Byte)result;
+                return true;
+            }
+            else
+            {
+                value = default;
+                return false;
+            }
         }
     }
 
@@ -170,7 +212,11 @@ partial struct ReadableStreamWrapper : IReadableStream
     {
         get
         {
-            if (m_Stream.CanRead)
+            if (m_Stream is null)
+            {
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
             {
                 return m_Stream.Length;
             }
@@ -186,7 +232,11 @@ partial struct ReadableStreamWrapper : IReadableStream
     {
         get
         {
-            if (m_Stream.CanRead)
+            if (m_Stream is null)
+            {
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
             {
                 return m_Stream.Position;
             }
@@ -197,7 +247,8 @@ partial struct ReadableStreamWrapper : IReadableStream
         }
         set
         {
-            if (m_Stream.CanRead)
+            if (m_Stream is not null &&
+                m_Stream.CanSeek)
             {
                 if (value < 0)
                 {
@@ -208,7 +259,7 @@ partial struct ReadableStreamWrapper : IReadableStream
                     m_Stream.Position = value;
                 }
             }
-            else
+            else if (m_Stream is not null)
             {
                 throw new ObjectDisposedException(null);
             }

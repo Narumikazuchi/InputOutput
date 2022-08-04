@@ -58,8 +58,11 @@ partial struct WriteableStreamWrapper : IAsyncDisposable
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
-        await m_Stream.DisposeAsync();
-        GC.SuppressFinalize(this);
+        if (m_Stream is not null)
+        {
+            await m_Stream.DisposeAsync();
+            GC.SuppressFinalize(this);
+        }
     }
 }
 
@@ -69,8 +72,11 @@ partial struct WriteableStreamWrapper : IDisposable
     /// <inheritdoc/>
     public void Dispose()
     {
-        m_Stream.Dispose();
-        GC.SuppressFinalize(this);
+        if (m_Stream is not null)
+        {
+            m_Stream.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }
 
@@ -82,37 +88,75 @@ partial struct WriteableStreamWrapper : IWriteableStream
         this.Dispose();
 
     /// <inheritdoc/>
-    public void Flush() =>
-        m_Stream.Flush();
+    public void Flush()
+    {
+        if (m_Stream is not null)
+        {
+            m_Stream.Flush();
+        }
+    }
 
     /// <inheritdoc/>
-    public async ValueTask FlushAsync() =>
-        await m_Stream.FlushAsync();
+    public async ValueTask FlushAsync()
+    {
+        if (m_Stream is not null)
+        {
+            await m_Stream.FlushAsync();
+        }
+    }
 
     /// <inheritdoc/>
-    public void Write(ReadOnlySpan<Byte> buffer) =>
-        m_Stream.Write(buffer: buffer);
+    public void Write(ReadOnlySpan<Byte> buffer)
+    {
+        if (m_Stream is not null)
+        {
+            m_Stream.Write(buffer: buffer);
+        }
+    }
 
     /// <inheritdoc/>
     public ValueTask WriteAsync(ReadOnlyMemory<Byte> buffer,
-                                CancellationToken cancellationToken) =>
-        m_Stream.WriteAsync(buffer: buffer,
-                            cancellationToken: cancellationToken);
+                                CancellationToken cancellationToken)
+    {
+        if (m_Stream is null)
+        {
+            return ValueTask.CompletedTask;
+        }
+        else
+        {
+            return m_Stream.WriteAsync(buffer: buffer,
+                                       cancellationToken: cancellationToken);
+        }
+    }
 
     /// <inheritdoc/>
-    public void WriteByte(Byte value) =>
-        m_Stream.WriteByte(value);
+    public void WriteByte(Byte value)
+    {
+        if (m_Stream is not null)
+        {
+            m_Stream.WriteByte(value);
+        }
+    }
 
     /// <inheritdoc/>
-    public void SetLength(Int64 length) =>
-        m_Stream.SetLength(length);
+    public void SetLength(Int64 length)
+    {
+        if (m_Stream is not null)
+        {
+            m_Stream.SetLength(length);
+        }
+    }
 
     /// <inheritdoc/>
     public Int64 Length
     {
         get
         {
-            if (m_Stream.CanRead)
+            if (m_Stream is null)
+            {
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
             {
                 return m_Stream.Length;
             }
@@ -128,7 +172,11 @@ partial struct WriteableStreamWrapper : IWriteableStream
     {
         get
         {
-            if (m_Stream.CanRead)
+            if (m_Stream is null)
+            {
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
             {
                 return m_Stream.Position;
             }
@@ -139,7 +187,8 @@ partial struct WriteableStreamWrapper : IWriteableStream
         }
         set
         {
-            if (m_Stream.CanRead)
+            if (m_Stream is not null &&
+                m_Stream.CanSeek)
             {
                 if (value < 0)
                 {
@@ -150,7 +199,7 @@ partial struct WriteableStreamWrapper : IWriteableStream
                     m_Stream.Position = value;
                 }
             }
-            else
+            else if (m_Stream is not null)
             {
                 throw new ObjectDisposedException(null);
             }
