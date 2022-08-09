@@ -375,6 +375,11 @@
             <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
             <exception cref="T:System.ArgumentException"/>
         </member>
+        <member name="P:Narumikazuchi.InputOutput.ReadableStreamWrapper.UnderlyingStream">
+            <summary>
+            Gets the underlying <see cref="T:System.IO.Stream"/> object for this wrapper.
+            </summary>
+        </member>
         <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.DisposeAsync">
             <inheritdoc/>
         </member>
@@ -423,6 +428,11 @@
             <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
             <exception cref="T:System.ArgumentException"/>
         </member>
+        <member name="P:Narumikazuchi.InputOutput.SeekableStreamWrapper.UnderlyingStream">
+            <summary>
+            Gets the underlying <see cref="T:System.IO.Stream"/> object for this wrapper.
+            </summary>
+        </member>
         <member name="M:Narumikazuchi.InputOutput.SeekableStreamWrapper.DisposeAsync">
             <inheritdoc/>
         </member>
@@ -459,6 +469,11 @@
             <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
             <exception cref="T:System.ArgumentException"/>
         </member>
+        <member name="P:Narumikazuchi.InputOutput.TimeoutStreamWrapper.UnderlyingStream">
+            <summary>
+            Gets the underlying <see cref="T:System.IO.Stream"/> object for this wrapper.
+            </summary>
+        </member>
         <member name="M:Narumikazuchi.InputOutput.TimeoutStreamWrapper.DisposeAsync">
             <inheritdoc/>
         </member>
@@ -491,6 +506,11 @@
             </summary>
             <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
             <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.WriteableStreamWrapper.UnderlyingStream">
+            <summary>
+            Gets the underlying <see cref="T:System.IO.Stream"/> object for this wrapper.
+            </summary>
         </member>
         <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.DisposeAsync">
             <inheritdoc/>
