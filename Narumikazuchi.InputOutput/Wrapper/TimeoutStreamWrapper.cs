@@ -31,6 +31,12 @@ public readonly partial struct TimeoutStreamWrapper
         }
     }
 
+    /// <summary>
+    /// Gets the underlying <see cref="Stream"/> object for this wrapper.
+    /// </summary>
+    public Stream UnderlyingStream =>
+        m_Stream;
+
 #pragma warning disable CS1591 // XML Comment
     public static implicit operator TimeoutStreamWrapper(Stream stream)
     {
