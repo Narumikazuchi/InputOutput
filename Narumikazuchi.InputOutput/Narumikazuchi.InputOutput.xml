@@ -546,53 +546,6 @@
         <member name="P:Narumikazuchi.InputOutput.TimeoutStreamWrapper.WriteTimeout">
             <inheritdoc/>
         </member>
-        <member name="T:Narumikazuchi.InputOutput.WriteableStreamWrapper">
-            <summary>
-            Wraps a <see cref="T:System.IO.Stream"/> that can be writen to (<see cref="P:System.IO.Stream.CanWrite"/>) into the
-            <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> interface.
-            </summary>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.WriteableStreamWrapper"/> struct.
-            </summary>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.#ctor(System.IO.Stream)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.WriteableStreamWrapper"/> struct.
-            </summary>
-            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
-            <exception cref="T:System.ArgumentException"/>
-        </member>
-        <member name="P:Narumikazuchi.InputOutput.WriteableStreamWrapper.UnderlyingStream">
-            <summary>
-            Gets the underlying <see cref="T:System.IO.Stream"/> object for this wrapper.
-            </summary>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.DisposeAsync">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Close">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Flush">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.FlushAsync">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteByte(System.Byte)">
-            <inheritdoc/>
-        </member>
         <member name="T:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper">
             <summary>
             Wraps a <see cref="T:System.IO.Stream"/> that can be writen to (<see cref="P:System.IO.Stream.CanWrite"/>) and has a known length into the
@@ -647,6 +600,53 @@
             <inheritdoc/>
         </member>
         <member name="P:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.Position">
+            <inheritdoc/>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.WriteableStreamWrapper">
+            <summary>
+            Wraps a <see cref="T:System.IO.Stream"/> that can be writen to (<see cref="P:System.IO.Stream.CanWrite"/>) into the
+            <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> interface.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.WriteableStreamWrapper"/> struct.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.WriteableStreamWrapper"/> struct.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.WriteableStreamWrapper.UnderlyingStream">
+            <summary>
+            Gets the underlying <see cref="T:System.IO.Stream"/> object for this wrapper.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Close">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Flush">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.FlushAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteByte(System.Byte)">
             <inheritdoc/>
         </member>
     </members>
