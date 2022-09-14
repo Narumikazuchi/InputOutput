@@ -4,7 +4,7 @@
 /// Represents an <see cref="IStream"/> that can be written to.
 /// </summary>
 public interface IWriteableStream :
-    IContainedStream
+    IStream
 {
     /// <summary>
     /// Clears all buffers for this <see cref="IWriteableStream"/> and causes any buffered data to be written to the underlying device.
@@ -17,20 +17,14 @@ public interface IWriteableStream :
     public ValueTask FlushAsync();
 
     /// <summary>
-    /// Sets the <see cref="IContainedStream.Length"/> of the current <see cref="IWriteableStream"/>.
-    /// </summary>
-    /// <param name="length">The desired length of the current <see cref="IWriteableStream"/> in bytes.</param>
-    public void SetLength(Int64 length);
-
-    /// <summary>
-    /// Writes a sequence of bytes to the current <see cref="IWriteableStream"/> and advances the current <see cref="IContainedStream.Position"/>
+    /// Writes a sequence of bytes to the current <see cref="IWriteableStream"/> and advances the current <see cref="INonContinousStream.Position"/>
     /// within this <see cref="IWriteableStream"/> by the number of bytes written.
     /// </summary>
     /// <param name="buffer">A region of memory. This method copies the contents of this region to the current <see cref="IWriteableStream"/>.</param>
     public void Write(ReadOnlySpan<Byte> buffer);
 
     /// <summary>
-    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="IContainedStream.Position"/>
+    /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="INonContinousStream.Position"/>
     /// within this <see cref="IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
     /// </summary>
     /// <param name="buffer">The region of memory to write data from.</param>
@@ -39,7 +33,8 @@ public interface IWriteableStream :
                                 CancellationToken cancellationToken);
 
     /// <summary>
-    /// Writes a byte to the current <see cref="IContainedStream.Position"/> in the <see cref="IWriteableStream"/> and advances the <see cref="IContainedStream.Position"/> 
+    /// Writes a byte to <see cref="IWriteableStream"/> and  if the <see cref="IWriteableStream"/> implements
+    /// <see cref="INonContinousStream"/>, then advances the <see cref="INonContinousStream.Position"/> 
     /// within the <see cref="IWriteableStream"/> by one byte.
     /// </summary>
     /// <param name="value">The byte to write to the <see cref="IWriteableStream"/>.</param>

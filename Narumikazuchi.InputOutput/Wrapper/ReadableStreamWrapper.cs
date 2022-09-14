@@ -35,7 +35,7 @@ public readonly partial struct ReadableStreamWrapper
     /// Gets the underlying <see cref="Stream"/> object for this wrapper.
     /// </summary>
     public Stream UnderlyingStream =>
-        m_Stream;
+        m_Stream ?? Stream.Null;
 
 #pragma warning disable CS1591 // XML Comment
     public static implicit operator ReadableStreamWrapper(Stream stream)
@@ -68,7 +68,7 @@ partial struct ReadableStreamWrapper
             await destination.WriteAsync(buffer: buffer.AsMemory()[..read],
                                          cancellationToken: cancellationToken);
             read = await m_Stream.ReadAsync(buffer: buffer,
-                                              cancellationToken: cancellationToken);
+                                            cancellationToken: cancellationToken);
         }
     }
 
@@ -209,65 +209,6 @@ partial struct ReadableStreamWrapper : IReadableStream
             {
                 value = default;
                 return false;
-            }
-        }
-    }
-
-    /// <inheritdoc/>
-    public Int64 Length
-    {
-        get
-        {
-            if (m_Stream is null)
-            {
-                return 0;
-            }
-            else if (m_Stream.CanSeek)
-            {
-                return m_Stream.Length;
-            }
-            else
-            {
-                throw new ObjectDisposedException(null);
-            }
-        }
-    }
-
-    /// <inheritdoc/>
-    public Int64 Position
-    {
-        get
-        {
-            if (m_Stream is null)
-            {
-                return 0;
-            }
-            else if (m_Stream.CanSeek)
-            {
-                return m_Stream.Position;
-            }
-            else
-            {
-                throw new ObjectDisposedException(null);
-            }
-        }
-        set
-        {
-            if (m_Stream is not null &&
-                m_Stream.CanSeek)
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
-                else
-                {
-                    m_Stream.Position = value;
-                }
-            }
-            else if (m_Stream is not null)
-            {
-                throw new ObjectDisposedException(null);
             }
         }
     }

@@ -11,7 +11,7 @@ public static class ReadableStreamExtensions
     /// to the destination <typeparamref name="TStream"/>.
     /// </summary>
     /// <remarks>
-    /// Be aware that the copying starts at the <see cref="IContainedStream.Position"/>
+    /// Be aware that the copying starts at the <see cref="INonContinousStream.Position"/>
     /// of the cursor and continues until the end of the <see cref="IReadableStream"/>.
     /// This also means that the cursor will be at the end of the <see cref="IReadableStream"/>,
     /// once the operation finishes.
@@ -30,7 +30,7 @@ public static class ReadableStreamExtensions
     /// to the destination <typeparamref name="TStream"/> asynchronosly.
     /// </summary>
     /// <remarks>
-    /// Be aware that the copying starts at the <see cref="IContainedStream.Position"/>
+    /// Be aware that the copying starts at the <see cref="INonContinousStream.Position"/>
     /// of the cursor and continues until the end of the <see cref="IReadableStream"/>.
     /// This also means that the cursor will be at the end of the <see cref="IReadableStream"/>,
     /// once the operation finishes.
@@ -49,7 +49,7 @@ public static class ReadableStreamExtensions
     /// to the destination <typeparamref name="TStream"/> asynchronosly.
     /// </summary>
     /// <remarks>
-    /// Be aware that the copying starts at the <see cref="IContainedStream.Position"/>
+    /// Be aware that the copying starts at the <see cref="INonContinousStream.Position"/>
     /// of the cursor and continues until the end of the <see cref="IReadableStream"/>.
     /// This also means that the cursor will be at the end of the <see cref="IReadableStream"/>,
     /// once the operation finishes.
@@ -70,7 +70,7 @@ public static class ReadableStreamExtensions
     /// to the destination <typeparamref name="TStream"/> asynchronosly.
     /// </summary>
     /// <remarks>
-    /// Be aware that the copying starts at the <see cref="IContainedStream.Position"/>
+    /// Be aware that the copying starts at the <see cref="INonContinousStream.Position"/>
     /// of the cursor and continues until the end of the <see cref="IReadableStream"/>.
     /// This also means that the cursor will be at the end of the <see cref="IReadableStream"/>,
     /// once the operation finishes.
@@ -88,7 +88,7 @@ public static class ReadableStreamExtensions
                                cancellationToken: CancellationToken.None);
 
     /// <summary>
-    /// Reads a sequence of bytes from the current <see cref="IReadableStream"/> and advances the <see cref="IContainedStream.Position"/>
+    /// Reads a sequence of bytes from the current <see cref="IReadableStream"/> and advances the <see cref="INonContinousStream.Position"/>
     /// within the <see cref="IReadableStream"/> by the number of bytes read.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>
@@ -109,7 +109,7 @@ public static class ReadableStreamExtensions
         stream.Read(buffer: buffer.AsSpan()[offset..(offset + count)]);
 
     /// <summary>
-    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="IContainedStream.Position"/> 
+    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="INonContinousStream.Position"/> 
     /// within the <see cref="IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>
@@ -119,7 +119,7 @@ public static class ReadableStreamExtensions
         stream.ReadAsync(buffer: buffer,
                          cancellationToken: CancellationToken.None);
     /// <summary>
-    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="IContainedStream.Position"/> 
+    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="INonContinousStream.Position"/> 
     /// within the <see cref="IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>
@@ -133,7 +133,7 @@ public static class ReadableStreamExtensions
         stream.ReadAsync(buffer: buffer.AsMemory()[offset..(offset + count)],
                          cancellationToken: CancellationToken.None);
     /// <summary>
-    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="IContainedStream.Position"/> 
+    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="INonContinousStream.Position"/> 
     /// within the <see cref="IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>

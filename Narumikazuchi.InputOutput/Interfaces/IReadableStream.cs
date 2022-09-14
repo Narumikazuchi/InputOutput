@@ -4,14 +4,15 @@
 /// Represents an <see cref="IStream"/> that can be read from.
 /// </summary>
 public interface IReadableStream :
-    IContainedStream
+    IStream
 {
     /// <summary>
     /// Reads the bytes from the current <see cref="IReadableStream"/> and writes them
     /// to the destination <typeparamref name="TStream"/>.
     /// </summary>
     /// <remarks>
-    /// Be aware that the copying starts at the <see cref="IContainedStream.Position"/>
+    /// Be aware that if the <see cref="IReadableStream"/> implements <see cref="INonContinousStream"/>, then
+    /// the copying starts at the <see cref="INonContinousStream.Position"/>
     /// of the cursor and continues until the end of the <see cref="IReadableStream"/>.
     /// This also means that the cursor will be at the end of the <see cref="IReadableStream"/>,
     /// once the operation finishes.
@@ -28,7 +29,8 @@ public interface IReadableStream :
     /// to the destination <typeparamref name="TStream"/> asynchronosly.
     /// </summary>
     /// <remarks>
-    /// Be aware that the copying starts at the <see cref="IContainedStream.Position"/>
+    /// Be aware that if the <see cref="IReadableStream"/> implements <see cref="INonContinousStream"/>, then
+    /// the copying starts at the <see cref="INonContinousStream.Position"/>
     /// of the cursor and continues until the end of the <see cref="IReadableStream"/>.
     /// This also means that the cursor will be at the end of the <see cref="IReadableStream"/>,
     /// once the operation finishes.
@@ -43,7 +45,8 @@ public interface IReadableStream :
         where TStream : IWriteableStream;
 
     /// <summary>
-    /// Reads a sequence of bytes from the current <see cref="IReadableStream"/> and advances the <see cref="IContainedStream.Position"/>
+    /// Reads a sequence of bytes from the current <see cref="IReadableStream"/> and if the <see cref="IReadableStream"/>
+    /// implements <see cref="INonContinousStream"/>,then advances the <see cref="INonContinousStream.Position"/>
     /// within the <see cref="IReadableStream"/> by the number of bytes read.
     /// </summary>
     /// <param name="buffer">
@@ -56,8 +59,9 @@ public interface IReadableStream :
     public Int32 Read(Span<Byte> buffer);
 
     /// <summary>
-    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="IContainedStream.Position"/> 
-    /// within the <see cref="IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
+    /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/> and if the <see cref="IReadableStream"/>
+    /// implements <see cref="INonContinousStream"/>, then advances the <see cref="INonContinousStream.Position"/> 
+    /// within the <see cref="IReadableStream"/> by the number of bytes read. Monitors cancellation requests.
     /// </summary>
     /// <param name="buffer">The region of memory to write the data into.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
@@ -65,7 +69,8 @@ public interface IReadableStream :
                                       CancellationToken cancellationToken);
 
     /// <summary>
-    /// Reads a byte from the <see cref="IReadableStream"/> and advances the <see cref="IContainedStream.Position"/> within the stream by one byte.
+    /// Reads a byte from the <see cref="IReadableStream"/> and if the <see cref="IReadableStream"/> implements 
+    /// <see cref="INonContinousStream"/>, then advances the <see cref="INonContinousStream.Position"/> within the stream by one byte.
     /// </summary>
     /// <param name="byte">The next unsigned byte in the <see cref="IReadableStream"/>.</param>
     /// <returns><see langword="true"/> if there is a next byte; otherwise, <see langword="false"/>.</returns>

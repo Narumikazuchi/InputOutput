@@ -35,7 +35,7 @@ public readonly partial struct SeekableStreamWrapper
     /// Gets the underlying <see cref="Stream"/> object for this wrapper.
     /// </summary>
     public Stream UnderlyingStream =>
-        m_Stream;
+        m_Stream ?? Stream.Null;
 
 #pragma warning disable CS1591 // XML Comment
     public static implicit operator SeekableStreamWrapper(Stream stream)

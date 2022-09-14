@@ -1,29 +1,29 @@
 ﻿namespace Narumikazuchi.InputOutput;
 
 /// <summary>
-/// Wraps a <see cref="Stream"/> that can timeout (<see cref="Stream.CanTimeout"/>) into the
-/// <see cref="ITimeoutStream"/> interface.
+/// Wraps a <see cref="Stream"/> that has a known length into the
+/// <see cref="INonContinousStream"/> interface.
 /// </summary>
-public readonly partial struct TimeoutStreamWrapper
+public readonly partial struct NonContinousStreamWrapper
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="TimeoutStreamWrapper"/> struct.
+    /// Initializes a new instance of the <see cref="NonContinousStreamWrapper"/> struct.
     /// </summary>
-    public TimeoutStreamWrapper()
+    public NonContinousStreamWrapper()
     {
         m_Stream = Stream.Null;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TimeoutStreamWrapper"/> struct.
+    /// Initializes a new instance of the <see cref="NonContinousStreamWrapper"/> struct.
     /// </summary>
     /// <param name="stream">The <see cref="Stream"/> to wrap.</param>
     /// <exception cref="ArgumentException"/>
-    public TimeoutStreamWrapper(Stream stream)
+    public NonContinousStreamWrapper(Stream stream)
     {
-        if (!stream.CanTimeout)
+        if (!stream.CanRead)
         {
-            throw new ArgumentException("can't timeout");
+            throw new ArgumentException("can't read");
         }
         else
         {
@@ -38,9 +38,9 @@ public readonly partial struct TimeoutStreamWrapper
         m_Stream ?? Stream.Null;
 
 #pragma warning disable CS1591 // XML Comment
-    public static implicit operator TimeoutStreamWrapper(Stream stream)
+    public static implicit operator NonContinousStreamWrapper(Stream stream)
     {
-        if (!stream.CanTimeout)
+        if (!stream.CanSeek)
         {
             throw new ArgumentException("", nameof(stream));
         }
@@ -53,13 +53,13 @@ public readonly partial struct TimeoutStreamWrapper
 }
 
 // Non-Public
-partial struct TimeoutStreamWrapper
+partial struct NonContinousStreamWrapper
 {
     internal readonly Stream m_Stream = Stream.Null;
 }
 
 // IAsyncDisposable
-partial struct TimeoutStreamWrapper : IAsyncDisposable
+partial struct NonContinousStreamWrapper : IAsyncDisposable
 {
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()
@@ -73,7 +73,7 @@ partial struct TimeoutStreamWrapper : IAsyncDisposable
 }
 
 // IDisposable
-partial struct TimeoutStreamWrapper : IDisposable
+partial struct NonContinousStreamWrapper : IDisposable
 {
     /// <inheritdoc/>
     public void Dispose()
@@ -86,55 +86,68 @@ partial struct TimeoutStreamWrapper : IDisposable
     }
 }
 
-// ITimeoutStream
-partial struct TimeoutStreamWrapper : ITimeoutStream
+// IDisposable
+partial struct NonContinousStreamWrapper : INonContinousStream
 {
     /// <inheritdoc/>
     public void Close() =>
         this.Dispose();
 
     /// <inheritdoc/>
-    public Int32 ReadTimeout
+    public Int64 Length
     {
         get
         {
             if (m_Stream is null)
             {
-                return -1;
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
+            {
+                return m_Stream.Length;
             }
             else
             {
-                return m_Stream.ReadTimeout;
-            }
-        }
-        set
-        {
-            if (m_Stream is not null)
-            {
-                m_Stream.ReadTimeout = value;
+                throw new ObjectDisposedException(null);
             }
         }
     }
 
     /// <inheritdoc/>
-    public Int32 WriteTimeout
+    public Int64 Position
     {
         get
         {
             if (m_Stream is null)
             {
-                return -1;
+                return 0;
+            }
+            else if (m_Stream.CanSeek)
+            {
+                return m_Stream.Position;
             }
             else
             {
-                return m_Stream.WriteTimeout;
+                throw new ObjectDisposedException(null);
             }
         }
         set
         {
-            if (m_Stream is not null)
+            if (m_Stream is not null &&
+                m_Stream.CanSeek)
             {
-                m_Stream.WriteTimeout = value;
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                }
+                else
+                {
+                    m_Stream.Position = value;
+                }
+            }
+            else if (m_Stream is not null)
+            {
+                throw new ObjectDisposedException(null);
             }
         }
     }

@@ -6,6 +6,14 @@
 public static class StreamExtensions
 {
     /// <summary>
+    /// Wraps the current <see cref="Stream"/> into an <see cref="INonContinousStream"/>.
+    /// </summary>
+    /// <param name="stream">The <see cref="Stream"/> to wrap.</param>
+    /// <returns>A <see cref="NonContinousStreamWrapper"/> that allows the <see cref="Stream"/> to be used as <see cref="INonContinousStream"/>.</returns>
+    public static NonContinousStreamWrapper AsNonContinousStreamStream(this Stream stream) =>
+        new(stream);
+
+    /// <summary>
     /// Wraps the current <see cref="Stream"/> into an <see cref="IReadableStream"/>.
     /// </summary>
     /// <param name="stream">The <see cref="Stream"/> to wrap.</param>
@@ -35,5 +43,13 @@ public static class StreamExtensions
     /// <param name="stream">The <see cref="Stream"/> to wrap.</param>
     /// <returns>A <see cref="WriteableStreamWrapper"/> that allows the <see cref="Stream"/> to be used as <see cref="IWriteableStream"/>.</returns>
     public static WriteableStreamWrapper AsWriteableStream(this Stream stream) =>
+        new(stream);
+
+    /// <summary>
+    /// Wraps the current <see cref="Stream"/> into an <see cref="IWriteableNonContinousStream"/>.
+    /// </summary>
+    /// <param name="stream">The <see cref="Stream"/> to wrap.</param>
+    /// <returns>A <see cref="WriteableNonContinousStreamWrapper"/> that allows the <see cref="Stream"/> to be used as <see cref="IWriteableNonContinousStream"/>.</returns>
+    public static WriteableNonContinousStreamWrapper AsWriteableNonContinousStream(this Stream stream) =>
         new(stream);
 }
