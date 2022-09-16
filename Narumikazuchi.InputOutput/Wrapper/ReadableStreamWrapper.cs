@@ -115,7 +115,14 @@ partial struct ReadableStreamWrapper : IReadableStream
                                 Int32 bufferSize)
         where TStream : IWriteableStream
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(destination);
+#else
+        if (destination is null)
+        {
+            throw new ArgumentNullException(nameof(destination));
+        }
+#endif
 
         if (m_Stream is not null)
         {
@@ -135,7 +142,14 @@ partial struct ReadableStreamWrapper : IReadableStream
                                           CancellationToken cancellationToken)
         where TStream : IWriteableStream
     {
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(destination);
+#else
+        if (destination is null)
+        {
+            throw new ArgumentNullException(nameof(destination));
+        }
+#endif
 
         if (m_Stream is null)
         {

@@ -165,6 +165,51 @@
             <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
             <returns>A <see cref="T:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper"/> that allows the <see cref="T:System.IO.Stream"/> to be used as <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</returns>
         </member>
+        <member name="T:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions">
+            <summary>
+            Contains extensions for <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> objects, to reduce the clutter of methods
+            that need to be implemented, yet still give the consumer more options to use a reduced signature.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.Write(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> and advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> by the number of bytes written.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">An array of bytes. This method copies count bytes from buffer to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
+            <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> by the number of bytes written, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write data from.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> by the number of bytes written, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write data from.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
+            <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
+            within this <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> by the number of bytes written, and monitors cancellation requests.
+            </summary>
+            <param name="stream">The stream that will execute the method.</param>
+            <param name="buffer">The region of memory to write data from.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
+            <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        </member>
         <member name="T:Narumikazuchi.InputOutput.WriteableStreamExtensions">
             <summary>
             Contains extensions for <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> objects, to reduce the clutter of methods
