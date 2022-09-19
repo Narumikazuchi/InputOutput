@@ -58,6 +58,7 @@ partial struct TimeoutStreamWrapper
     internal readonly Stream m_Stream = Stream.Null;
 }
 
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 // IAsyncDisposable
 partial struct TimeoutStreamWrapper : IAsyncDisposable
 {
@@ -71,6 +72,7 @@ partial struct TimeoutStreamWrapper : IAsyncDisposable
         }
     }
 }
+#endif
 
 // IDisposable
 partial struct TimeoutStreamWrapper : IDisposable

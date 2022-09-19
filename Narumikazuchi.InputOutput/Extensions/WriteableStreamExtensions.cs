@@ -1,5 +1,6 @@
 ﻿namespace Narumikazuchi.InputOutput;
 
+#if NET5_0_OR_GREATER
 /// <summary>
 /// Contains extensions for <see cref="IWriteableStream"/> objects, to reduce the clutter of methods
 /// that need to be implemented, yet still give the consumer more options to use a reduced signature.
@@ -61,3 +62,4 @@ public static class WriteableStreamExtensions
         stream.WriteAsync(buffer: buffer.AsMemory()[offset..(offset + count)],
                           cancellationToken: cancellationToken);
 }
+#endif

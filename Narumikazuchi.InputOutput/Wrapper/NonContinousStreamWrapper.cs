@@ -58,6 +58,7 @@ partial struct NonContinousStreamWrapper
     internal readonly Stream m_Stream = Stream.Null;
 }
 
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 // IAsyncDisposable
 partial struct NonContinousStreamWrapper : IAsyncDisposable
 {
@@ -71,6 +72,7 @@ partial struct NonContinousStreamWrapper : IAsyncDisposable
         }
     }
 }
+#endif
 
 // IDisposable
 partial struct NonContinousStreamWrapper : IDisposable

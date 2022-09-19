@@ -58,6 +58,7 @@ partial struct WriteableStreamWrapper
     internal readonly Stream m_Stream = Stream.Null;
 }
 
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 // IAsyncDisposable
 partial struct WriteableStreamWrapper : IAsyncDisposable
 {
@@ -71,6 +72,7 @@ partial struct WriteableStreamWrapper : IAsyncDisposable
         }
     }
 }
+#endif
 
 // IDisposable
 partial struct WriteableStreamWrapper : IDisposable
@@ -103,6 +105,7 @@ partial struct WriteableStreamWrapper : IWriteableStream
     }
 
     /// <inheritdoc/>
+#if NET5_0_OR_GREATER
     public async ValueTask FlushAsync()
     {
         if (m_Stream is not null)
@@ -110,7 +113,17 @@ partial struct WriteableStreamWrapper : IWriteableStream
             await m_Stream.FlushAsync();
         }
     }
+#else
+    public async Task FlushAsync()
+    {
+        if (m_Stream is not null)
+        {
+            await m_Stream.FlushAsync();
+        }
+    }
+#endif
 
+#if NET5_0_OR_GREATER
     /// <inheritdoc/>
     public void Write(ReadOnlySpan<Byte> buffer)
     {
@@ -119,7 +132,22 @@ partial struct WriteableStreamWrapper : IWriteableStream
             m_Stream.Write(buffer: buffer);
         }
     }
+#else
+    /// <inheritdoc/>
+    public void Write(Byte[] buffer,
+                      Int32 offset,
+                      Int32 count)
+    {
+        if (m_Stream is not null)
+        {
+            m_Stream.Write(buffer: buffer,
+                           offset: offset,
+                           count: count);
+        }
+    }
+#endif
 
+#if NET5_0_OR_GREATER
     /// <inheritdoc/>
     public ValueTask WriteAsync(ReadOnlyMemory<Byte> buffer,
                                 CancellationToken cancellationToken)
@@ -134,6 +162,26 @@ partial struct WriteableStreamWrapper : IWriteableStream
                                        cancellationToken: cancellationToken);
         }
     }
+#else
+    /// <inheritdoc/>
+    public Task WriteAsync(Byte[] buffer,
+                           Int32 offset,
+                           Int32 count,
+                           CancellationToken cancellationToken)
+    {
+        if (m_Stream is null)
+        {
+            return Task.CompletedTask;
+        }
+        else
+        {
+            return m_Stream.WriteAsync(buffer: buffer,
+                                       offset: offset,
+                                       count: count,
+                                       cancellationToken: cancellationToken);
+        }
+    }
+#endif
 
     /// <inheritdoc/>
     public void WriteByte(Byte value)

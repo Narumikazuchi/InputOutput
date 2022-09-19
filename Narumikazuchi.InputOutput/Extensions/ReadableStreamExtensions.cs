@@ -20,10 +20,13 @@ public static class ReadableStreamExtensions
     /// <param name="destination">The <see cref="IWriteableStream"/> to write to.</param>
     /// <exception cref="ArgumentNullException"/>
     public static void CopyTo<TStream>(this IReadableStream stream,
-                                       [DisallowNull] TStream destination)
-        where TStream : IWriteableStream =>
-            stream.CopyTo(destination: destination,
-                          bufferSize: DEFAULT_BUFFER_SIZE);
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        [DisallowNull]
+#endif
+        TStream destination)
+            where TStream : IWriteableStream =>
+                stream.CopyTo(destination: destination,
+                              bufferSize: DEFAULT_BUFFER_SIZE);
 
     /// <summary>
     /// Reads the bytes from the current <see cref="IReadableStream"/> and writes them
@@ -38,12 +41,21 @@ public static class ReadableStreamExtensions
     /// <param name="stream">The stream that will execute the method.</param>
     /// <param name="destination">The <see cref="IWriteableStream"/> to write to.</param>
     /// <exception cref="ArgumentNullException"/>
+#if NET5_0_OR_GREATER
     public static ValueTask CopyToAsync<TStream>(this IReadableStream stream,
-                                                [DisallowNull] TStream destination)
+                                                 [DisallowNull] TStream destination)
         where TStream : IWriteableStream =>
             stream.CopyToAsync(destination: destination,
-                               bufferSize: DEFAULT_BUFFER_SIZE,
-                               cancellationToken: CancellationToken.None);
+                                bufferSize: DEFAULT_BUFFER_SIZE,
+                                cancellationToken: CancellationToken.None);
+#else
+    public static Task CopyToAsync<TStream>(this IReadableStream stream,
+                                            TStream destination)
+        where TStream : IWriteableStream =>
+            stream.CopyToAsync(destination: destination,
+                                bufferSize: DEFAULT_BUFFER_SIZE,
+                                cancellationToken: CancellationToken.None);
+#endif
     /// <summary>
     /// Reads the bytes from the current <see cref="IReadableStream"/> and writes them
     /// to the destination <typeparamref name="TStream"/> asynchronosly.
@@ -58,13 +70,23 @@ public static class ReadableStreamExtensions
     /// <param name="destination">The <see cref="IWriteableStream"/> to write to.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <exception cref="ArgumentNullException"/>
+#if NET5_0_OR_GREATER
     public static ValueTask CopyToAsync<TStream>(this IReadableStream stream,
-                                                [DisallowNull] TStream destination,
-                                                CancellationToken cancellationToken)
+                                                 [DisallowNull] TStream destination,
+                                                 CancellationToken cancellationToken)
         where TStream : IWriteableStream =>
             stream.CopyToAsync(destination: destination,
-                               bufferSize: DEFAULT_BUFFER_SIZE,
-                               cancellationToken: cancellationToken);
+                                bufferSize: DEFAULT_BUFFER_SIZE,
+                                cancellationToken: cancellationToken);
+#else
+    public static Task CopyToAsync<TStream>(this IReadableStream stream,
+                                                 TStream destination,
+                                                 CancellationToken cancellationToken)
+        where TStream : IWriteableStream =>
+            stream.CopyToAsync(destination: destination,
+                                bufferSize: DEFAULT_BUFFER_SIZE,
+                                cancellationToken: cancellationToken);
+#endif
     /// <summary>
     /// Reads the bytes from the current <see cref="IReadableStream"/> and writes them
     /// to the destination <typeparamref name="TStream"/> asynchronosly.
@@ -79,14 +101,25 @@ public static class ReadableStreamExtensions
     /// <param name="destination">The <see cref="IWriteableStream"/> to write to.</param>
     /// <param name="bufferSize">The size of the individual chunks that should be copied at once.</param>
     /// <exception cref="ArgumentNullException"/>
+#if NET5_0_OR_GREATER
     public static ValueTask CopyToAsync<TStream>(this IReadableStream stream,
-                                                [DisallowNull] TStream destination,
-                                                Int32 bufferSize)
+                                                 [DisallowNull] TStream destination,
+                                                 Int32 bufferSize)
         where TStream : IWriteableStream =>
             stream.CopyToAsync(destination: destination,
-                               bufferSize: bufferSize,
-                               cancellationToken: CancellationToken.None);
+                                bufferSize: bufferSize,
+                                cancellationToken: CancellationToken.None);
+#else
+    public static Task CopyToAsync<TStream>(this IReadableStream stream,
+                                            TStream destination,
+                                            Int32 bufferSize)
+        where TStream : IWriteableStream =>
+            stream.CopyToAsync(destination: destination,
+                                bufferSize: bufferSize,
+                                cancellationToken: CancellationToken.None);
+#endif
 
+#if NET5_0_OR_GREATER
     /// <summary>
     /// Reads a sequence of bytes from the current <see cref="IReadableStream"/> and advances the <see cref="INonContinousStream.Position"/>
     /// within the <see cref="IReadableStream"/> by the number of bytes read.
@@ -107,6 +140,7 @@ public static class ReadableStreamExtensions
                              Int32 offset,
                              Int32 count) =>
         stream.Read(buffer: buffer.AsSpan()[offset..(offset + count)]);
+#endif
 
     /// <summary>
     /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="INonContinousStream.Position"/> 
@@ -114,10 +148,21 @@ public static class ReadableStreamExtensions
     /// </summary>
     /// <param name="stream">The stream that will execute the method.</param>
     /// <param name="buffer">The region of memory to write the data into.</param>
+#if NET5_0_OR_GREATER
     public static ValueTask<Int32> ReadAsync(this IReadableStream stream,
                                              Memory<Byte> buffer) =>
         stream.ReadAsync(buffer: buffer,
                          cancellationToken: CancellationToken.None);
+#else
+    public static Task<Int32> ReadAsync(this IReadableStream stream,
+                                        Byte[] buffer) =>
+        stream.ReadAsync(buffer: buffer,
+                         offset: 0,
+                         count: buffer.Length,
+                         cancellationToken: CancellationToken.None);
+#endif
+
+#if NET5_0_OR_GREATER
     /// <summary>
     /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="INonContinousStream.Position"/> 
     /// within the <see cref="IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
@@ -132,6 +177,7 @@ public static class ReadableStreamExtensions
                                              Int32 count) =>
         stream.ReadAsync(buffer: buffer.AsMemory()[offset..(offset + count)],
                          cancellationToken: CancellationToken.None);
+
     /// <summary>
     /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/>, advances the <see cref="INonContinousStream.Position"/> 
     /// within the <see cref="IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
@@ -148,6 +194,7 @@ public static class ReadableStreamExtensions
                                              CancellationToken cancellationToken) =>
         stream.ReadAsync(buffer: buffer.AsMemory()[offset..(offset + count)],
                          cancellationToken: cancellationToken);
+#endif
 
     private const Int32 DEFAULT_BUFFER_SIZE = 81920;
 }

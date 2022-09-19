@@ -62,6 +62,7 @@ partial struct WriteableNonContinousStreamWrapper
     internal readonly WriteableStreamWrapper m_Stream = Stream.Null;
 }
 
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 // IAsyncDisposable
 partial struct WriteableNonContinousStreamWrapper : IAsyncDisposable
 {
@@ -69,6 +70,7 @@ partial struct WriteableNonContinousStreamWrapper : IAsyncDisposable
     public ValueTask DisposeAsync() =>
         m_Stream.DisposeAsync();
 }
+#endif
 
 // IDisposable
 partial struct WriteableNonContinousStreamWrapper : IDisposable
@@ -90,18 +92,45 @@ partial struct WriteableNonContinousStreamWrapper : IWriteableNonContinousStream
         m_Stream.Flush();
 
     /// <inheritdoc/>
+#if NET5_0_OR_GREATER
     public ValueTask FlushAsync() =>
         m_Stream.FlushAsync();
+#else
+    public Task FlushAsync() =>
+        m_Stream.FlushAsync();
+#endif
 
+#if NET5_0_OR_GREATER
     /// <inheritdoc/>
     public void Write(ReadOnlySpan<Byte> buffer) =>
         m_Stream.Write(buffer: buffer);
+#else
+    /// <inheritdoc/>
+    public void Write(Byte[] buffer,
+                      Int32 offset,
+                      Int32 count) =>
+        m_Stream.Write(buffer: buffer,
+                       offset: offset,
+                       count: count);
+#endif
 
+#if NET5_0_OR_GREATER
     /// <inheritdoc/>
     public ValueTask WriteAsync(ReadOnlyMemory<Byte> buffer,
                                 CancellationToken cancellationToken) =>
         m_Stream.WriteAsync(buffer: buffer,
                             cancellationToken: cancellationToken);
+#else
+    /// <inheritdoc/>
+    public Task WriteAsync(Byte[] buffer,
+                           Int32 offset,
+                           Int32 count,
+                           CancellationToken cancellationToken) =>
+        m_Stream.WriteAsync(buffer: buffer,
+                            offset: offset,
+                            count: count,
+                            cancellationToken: cancellationToken);
+#endif
 
     /// <inheritdoc/>
     public void WriteByte(Byte value) =>

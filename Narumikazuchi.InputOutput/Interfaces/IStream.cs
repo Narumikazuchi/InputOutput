@@ -4,7 +4,9 @@
 /// Represents a basic stream of data in the form of <see cref="Byte"/>[].
 /// </summary>
 public interface IStream :
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
     IAsyncDisposable,
+#endif
     IDisposable
 {
     /// <summary>
