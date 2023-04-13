@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net48;netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net48;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<PlatformTarget>x64</PlatformTarget>
@@ -10,13 +10,14 @@
 	<PropertyGroup>
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 		<WarningsNotAsErrors>1591</WarningsNotAsErrors>
+		<NoWarn>NU1803;1701;1702,0282</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<DocumentationFile>Narumikazuchi.InputOutput.xml</DocumentationFile>
 		<Authors>Narumikazuchi</Authors>
 		<Copyright>©2022 Narumikazuchi</Copyright>
-		<Version>0.3.5-beta</Version>
+		<Version>2023.4.13.1-prerelease</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>

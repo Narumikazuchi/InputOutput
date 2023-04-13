@@ -6,6 +6,13 @@
 /// </summary>
 public readonly partial struct SeekableStreamWrapper
 {
+#pragma warning disable CS1591 // XML Comment
+    static public implicit operator SeekableStreamWrapper(Stream stream)
+    {
+        return new(stream);
+    }
+#pragma warning restore
+
     /// <summary>
     /// Initializes a new instance of the <see cref="SeekableStreamWrapper"/> struct.
     /// </summary>
@@ -23,7 +30,8 @@ public readonly partial struct SeekableStreamWrapper
     {
         if (!stream.CanSeek)
         {
-            throw new ArgumentException("can't seek");
+            throw new ArgumentException(message: "The stream you are trying to wrap is nto seekable.",
+                                        paramName: nameof(stream));
         }
         else
         {
@@ -34,138 +42,13 @@ public readonly partial struct SeekableStreamWrapper
     /// <summary>
     /// Gets the underlying <see cref="Stream"/> object for this wrapper.
     /// </summary>
-    public Stream UnderlyingStream =>
-        m_Stream ?? Stream.Null;
-
-#pragma warning disable CS1591 // XML Comment
-    public static implicit operator SeekableStreamWrapper(Stream stream)
+    public Stream UnderlyingStream
     {
-        if (!stream.CanSeek)
+        get
         {
-            throw new ArgumentException("", nameof(stream));
-        }
-        else
-        {
-            return new(stream);
+            return m_Stream ?? Stream.Null;
         }
     }
-#pragma warning restore
-}
 
-// Non-Public
-partial struct SeekableStreamWrapper
-{
     internal readonly Stream m_Stream = Stream.Null;
-}
-
-#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-// IAsyncDisposable
-partial struct SeekableStreamWrapper : IAsyncDisposable
-{
-    /// <inheritdoc/>
-    public async ValueTask DisposeAsync()
-    {
-        if (m_Stream is not null)
-        {
-            await m_Stream.DisposeAsync();
-            GC.SuppressFinalize(this);
-        }
-    }
-}
-#endif
-
-// IDisposable
-partial struct SeekableStreamWrapper : IDisposable
-{
-    /// <inheritdoc/>
-    public void Dispose()
-    {
-        if (m_Stream is not null)
-        {
-            m_Stream.Dispose();
-            GC.SuppressFinalize(this);
-        }
-    }
-}
-
-// ISeekableStream
-partial struct SeekableStreamWrapper : ISeekableStream
-{
-    /// <inheritdoc/>
-    public void Close() =>
-        this.Dispose();
-
-    /// <inheritdoc/>
-    public Int64 Seek(Int64 offset,
-                      SeekOrigin origin)
-    {
-        if (m_Stream is null)
-        {
-            return 0;
-        }
-        else
-        {
-            return m_Stream.Seek(offset: offset,
-                                 origin: origin);
-        }
-    }
-
-    /// <inheritdoc/>
-    public Int64 Length
-    {
-        get
-        {
-            if (m_Stream is null)
-            {
-                return 0;
-            }
-            else if (m_Stream.CanSeek)
-            {
-                return m_Stream.Length;
-            }
-            else
-            {
-                throw new ObjectDisposedException(null);
-            }
-        }
-    }
-
-    /// <inheritdoc/>
-    public Int64 Position
-    {
-        get
-        {
-            if (m_Stream is null)
-            {
-                return 0;
-            }
-            else if (m_Stream.CanSeek)
-            {
-                return m_Stream.Position;
-            }
-            else
-            {
-                throw new ObjectDisposedException(null);
-            }
-        }
-        set
-        {
-            if (m_Stream is not null &&
-                m_Stream.CanSeek)
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
-                else
-                {
-                    m_Stream.Position = value;
-                }
-            }
-            else if (m_Stream is not null)
-            {
-                throw new ObjectDisposedException(null);
-            }
-        }
-    }
 }

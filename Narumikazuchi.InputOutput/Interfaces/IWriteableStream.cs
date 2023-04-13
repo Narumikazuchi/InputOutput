@@ -6,20 +6,6 @@
 public interface IWriteableStream :
     IStream
 {
-    /// <summary>
-    /// Clears all buffers for this <see cref="IWriteableStream"/> and causes any buffered data to be written to the underlying device.
-    /// </summary>
-    public void Flush();
-
-    /// <summary>
-    /// Asynchronously clears all buffers for this <see cref="IWriteableStream"/> and causes any buffered data to be written to the underlying device.
-    /// </summary>
-#if NET5_0_OR_GREATER
-    public ValueTask FlushAsync();
-#else
-    public Task FlushAsync();
-#endif
-
 #if NET5_0_OR_GREATER
     /// <summary>
     /// Writes a sequence of bytes to the current <see cref="IWriteableStream"/> and advances the current <see cref="INonContinousStream.Position"/>
@@ -47,8 +33,8 @@ public interface IWriteableStream :
     /// </summary>
     /// <param name="buffer">The region of memory to write data from.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    public ValueTask WriteAsync(ReadOnlyMemory<Byte> buffer,
-                                CancellationToken cancellationToken);
+    public ValueTask WriteAsynchronously(ReadOnlyMemory<Byte> buffer,
+                                         CancellationToken cancellationToken);
 #else
     /// <summary>
     /// Asynchronously writes a sequence of bytes to the current <see cref="IWriteableStream"/>, advances the current <see cref="INonContinousStream.Position"/>
@@ -58,10 +44,10 @@ public interface IWriteableStream :
     /// <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="IWriteableStream"/>.</param>
     /// <param name="count">The number of bytes to be written to the current <see cref="IWriteableStream"/>.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    public Task WriteAsync(Byte[] buffer,
-                           Int32 offset,
-                           Int32 count,
-                           CancellationToken cancellationToken);
+    public Task WriteAsynchronously(Byte[] buffer,
+                                    Int32 offset,
+                                    Int32 count,
+                                    CancellationToken cancellationToken);
 #endif
 
     /// <summary>

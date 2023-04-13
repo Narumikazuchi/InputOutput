@@ -25,7 +25,7 @@
             <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsync``1(Narumikazuchi.InputOutput.IReadableStream,``0)">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsynchronously``1(Narumikazuchi.InputOutput.IReadableStream,``0)">
             <summary>
             Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
             to the destination <typeparamref name="TStream"/> asynchronosly.
@@ -40,7 +40,7 @@
             <param name="destination">The <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> to write to.</param>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsync``1(Narumikazuchi.InputOutput.IReadableStream,``0,System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsynchronously``1(Narumikazuchi.InputOutput.IReadableStream,``0,System.Threading.CancellationToken)">
             <summary>
             Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
             to the destination <typeparamref name="TStream"/> asynchronosly.
@@ -56,7 +56,7 @@
             <param name="cancellationToken">The token to monitor for cancellation requests.</param>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsync``1(Narumikazuchi.InputOutput.IReadableStream,``0,System.Int32)">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.CopyToAsynchronously``1(Narumikazuchi.InputOutput.IReadableStream,``0,System.Int32)">
             <summary>
             Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
             to the destination <typeparamref name="TStream"/> asynchronosly.
@@ -89,7 +89,7 @@
             <paramref name="buffer"/> if that many bytes are not currently available, or zero (0) if the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> has been reached.
             </returns>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsync(Narumikazuchi.InputOutput.IReadableStream,System.Memory{System.Byte})">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsynchronously(Narumikazuchi.InputOutput.IReadableStream,System.Memory{System.Byte})">
             <summary>
             Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>, advances the <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/> 
             within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
@@ -97,7 +97,7 @@
             <param name="stream">The stream that will execute the method.</param>
             <param name="buffer">The region of memory to write the data into.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsync(Narumikazuchi.InputOutput.IReadableStream,System.Byte[],System.Int32,System.Int32)">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsynchronously(Narumikazuchi.InputOutput.IReadableStream,System.Byte[],System.Int32,System.Int32)">
             <summary>
             Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>, advances the <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/> 
             within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
@@ -107,7 +107,7 @@
             <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
             <param name="count">The maximum number of bytes to be read from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsync(Narumikazuchi.InputOutput.IReadableStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamExtensions.ReadAsynchronously(Narumikazuchi.InputOutput.IReadableStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>, advances the <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/> 
             within the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> by the number of bytes read, and monitors cancellation requests.
@@ -129,6 +129,13 @@
             </summary>
             <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
             <returns>A <see cref="T:Narumikazuchi.InputOutput.NonContinousStreamWrapper"/> that allows the <see cref="T:System.IO.Stream"/> to be used as <see cref="T:Narumikazuchi.InputOutput.INonContinousStream"/>.</returns>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.StreamExtensions.AsFlushableStream(System.IO.Stream)">
+            <summary>
+            Wraps the current <see cref="T:System.IO.Stream"/> into an <see cref="T:Narumikazuchi.InputOutput.IFlushableStream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <returns>A <see cref="T:Narumikazuchi.InputOutput.FlushableStreamWrapper"/> that allows the <see cref="T:System.IO.Stream"/> to be used as <see cref="T:Narumikazuchi.InputOutput.IFlushableStream"/>.</returns>
         </member>
         <member name="M:Narumikazuchi.InputOutput.StreamExtensions.AsReadableStream(System.IO.Stream)">
             <summary>
@@ -181,7 +188,7 @@
             <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
             <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.ReadOnlyMemory{System.Byte})">
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsynchronously(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.ReadOnlyMemory{System.Byte})">
             <summary>
             Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
             within this <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> by the number of bytes written, and monitors cancellation requests.
@@ -189,7 +196,7 @@
             <param name="stream">The stream that will execute the method.</param>
             <param name="buffer">The region of memory to write data from.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.Byte[],System.Int32,System.Int32)">
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsynchronously(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.Byte[],System.Int32,System.Int32)">
             <summary>
             Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
             within this <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> by the number of bytes written, and monitors cancellation requests.
@@ -199,7 +206,7 @@
             <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
             <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamExtensions.WriteAsynchronously(Narumikazuchi.InputOutput.IWriteableNonContinousStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
             within this <see cref="T:Narumikazuchi.InputOutput.IWriteableNonContinousStream"/> by the number of bytes written, and monitors cancellation requests.
@@ -226,7 +233,7 @@
             <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
             <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableStream,System.ReadOnlyMemory{System.Byte})">
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsynchronously(Narumikazuchi.InputOutput.IWriteableStream,System.ReadOnlyMemory{System.Byte})">
             <summary>
             Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
             within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
@@ -234,7 +241,7 @@
             <param name="stream">The stream that will execute the method.</param>
             <param name="buffer">The region of memory to write data from.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableStream,System.Byte[],System.Int32,System.Int32)">
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsynchronously(Narumikazuchi.InputOutput.IWriteableStream,System.Byte[],System.Int32,System.Int32)">
             <summary>
             Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
             within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
@@ -244,7 +251,7 @@
             <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
             <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsync(Narumikazuchi.InputOutput.IWriteableStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamExtensions.WriteAsynchronously(Narumikazuchi.InputOutput.IWriteableStream,System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
             within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
@@ -254,6 +261,21 @@
             <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
             <param name="count">The number of bytes to be written to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
             <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.IFlushableStream">
+            <summary>
+            Represents an <see cref="T:Narumikazuchi.InputOutput.IStream"/> that can be flushed.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IFlushableStream.Flush">
+            <summary>
+            Clears all buffers for this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and causes any buffered data to be written to the underlying device.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.IFlushableStream.FlushAsynchronously">
+            <summary>
+            Asynchronously clears all buffers for this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and causes any buffered data to be written to the underlying device.
+            </summary>
         </member>
         <member name="T:Narumikazuchi.InputOutput.INonContinousStream">
             <summary>
@@ -291,7 +313,7 @@
             <param name="bufferSize">The size of the individual chunks that should be copied at once.</param>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.IReadableStream.CopyToAsync``1(``0,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.IReadableStream.CopyToAsynchronously``1(``0,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Reads the bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and writes them
             to the destination <typeparamref name="TStream"/> asynchronosly.
@@ -322,7 +344,7 @@
             <paramref name="buffer"/> if that many bytes are not currently available, or zero (0) if the end of the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> has been reached.
             </returns>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.IReadableStream.ReadAsync(System.Memory{System.Byte},System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.IReadableStream.ReadAsynchronously(System.Memory{System.Byte},System.Threading.CancellationToken)">
             <summary>
             Asynchronously reads a sequence of bytes from the current <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/> and if the <see cref="T:Narumikazuchi.InputOutput.IReadableStream"/>
             implements <see cref="T:Narumikazuchi.InputOutput.INonContinousStream"/>, then advances the <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/> 
@@ -394,16 +416,6 @@
             Represents an <see cref="T:Narumikazuchi.InputOutput.IStream"/> that can be written to.
             </summary>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.Flush">
-            <summary>
-            Clears all buffers for this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and causes any buffered data to be written to the underlying device.
-            </summary>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.FlushAsync">
-            <summary>
-            Asynchronously clears all buffers for this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and causes any buffered data to be written to the underlying device.
-            </summary>
-        </member>
         <member name="M:Narumikazuchi.InputOutput.IWriteableStream.Write(System.ReadOnlySpan{System.Byte})">
             <summary>
             Writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> and advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
@@ -411,7 +423,7 @@
             </summary>
             <param name="buffer">A region of memory. This method copies the contents of this region to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.IWriteableStream.WriteAsynchronously(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
             <summary>
             Asynchronously writes a sequence of bytes to the current <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>, advances the current <see cref="P:Narumikazuchi.InputOutput.INonContinousStream.Position"/>
             within this <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by the number of bytes written, and monitors cancellation requests.
@@ -426,6 +438,65 @@
             within the <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/> by one byte.
             </summary>
             <param name="value">The byte to write to the <see cref="T:Narumikazuchi.InputOutput.IWriteableStream"/>.</param>
+        </member>
+        <member name="T:Narumikazuchi.InputOutput.FlushableStreamWrapper">
+            <summary>
+            Wraps a <see cref="T:System.IO.Stream"/> that can be writen to (<see cref="P:System.IO.Stream.CanWrite"/>) and can be flushed into the
+            <see cref="T:Narumikazuchi.InputOutput.IFlushableStream"/> interface.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.FlushableStreamWrapper"/> struct.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Narumikazuchi.InputOutput.FlushableStreamWrapper"/> struct.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to wrap.</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.FlushableStreamWrapper.UnderlyingStream">
+            <summary>
+            Gets the underlying <see cref="T:System.IO.Stream"/> object for this wrapper.
+            </summary>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.Close">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.Flush">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.FlushAsynchronously">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.Write(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.WriteAsynchronously(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.WriteByte(System.Byte)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Narumikazuchi.InputOutput.FlushableStreamWrapper.SetLength(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.FlushableStreamWrapper.Length">
+            <inheritdoc/>
+        </member>
+        <member name="P:Narumikazuchi.InputOutput.FlushableStreamWrapper.Position">
+            <inheritdoc/>
         </member>
         <member name="T:Narumikazuchi.InputOutput.NonContinousStreamWrapper">
             <summary>
@@ -500,13 +571,13 @@
         <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.CopyTo``1(``0,System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.CopyToAsync``1(``0,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.CopyToAsynchronously``1(``0,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.Read(System.Span{System.Byte})">
             <inheritdoc/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.ReadAsync(System.Memory{System.Byte},System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.ReadAsynchronously(System.Memory{System.Byte},System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:Narumikazuchi.InputOutput.ReadableStreamWrapper.ReadByte(System.Nullable{System.Byte}@)">
@@ -623,16 +694,10 @@
         <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.Close">
             <inheritdoc/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.Flush">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.FlushAsync">
-            <inheritdoc/>
-        </member>
         <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
             <inheritdoc/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.WriteAsynchronously(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:Narumikazuchi.InputOutput.WriteableNonContinousStreamWrapper.WriteByte(System.Byte)">
@@ -679,16 +744,10 @@
         <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Close">
             <inheritdoc/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Flush">
-            <inheritdoc/>
-        </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.FlushAsync">
-            <inheritdoc/>
-        </member>
         <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
             <inheritdoc/>
         </member>
-        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+        <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteAsynchronously(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:Narumikazuchi.InputOutput.WriteableStreamWrapper.WriteByte(System.Byte)">

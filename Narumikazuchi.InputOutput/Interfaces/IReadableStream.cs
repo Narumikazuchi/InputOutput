@@ -44,14 +44,14 @@ public interface IReadableStream :
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <exception cref="ArgumentNullException"/>
 #if NET5_0_OR_GREATER
-    public ValueTask CopyToAsync<TStream>([DisallowNull] TStream destination,
-                                          Int32 bufferSize,
-                                          CancellationToken cancellationToken)
+    public ValueTask CopyToAsynchronously<TStream>([DisallowNull] TStream destination,
+                                                   Int32 bufferSize,
+                                                   CancellationToken cancellationToken)
         where TStream : IWriteableStream;
 #else
-    public Task CopyToAsync<TStream>(TStream destination,
-                                     Int32 bufferSize,
-                                     CancellationToken cancellationToken)
+    public Task CopyToAsynchronously<TStream>(TStream destination,
+                                              Int32 bufferSize,
+                                              CancellationToken cancellationToken)
         where TStream : IWriteableStream;
 #endif
 
@@ -97,8 +97,8 @@ public interface IReadableStream :
     /// </summary>
     /// <param name="buffer">The region of memory to write the data into.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    public ValueTask<Int32> ReadAsync(Memory<Byte> buffer,
-                                      CancellationToken cancellationToken);
+    public ValueTask<Int32> ReadAsynchronously(Memory<Byte> buffer,
+                                               CancellationToken cancellationToken);
 #else
     /// <summary>
     /// Asynchronously reads a sequence of bytes from the current <see cref="IReadableStream"/> and if the <see cref="IReadableStream"/>
@@ -109,10 +109,10 @@ public interface IReadableStream :
     /// <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current <see cref="IReadableStream"/>.</param>
     /// <param name="count">The maximum number of bytes to be read from the current <see cref="IReadableStream"/>.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    public Task<Int32> ReadAsync(Byte[] buffer,
-                                 Int32 offset,
-                                 Int32 count,
-                                 CancellationToken cancellationToken);
+    public Task<Int32> ReadAsynchronously(Byte[] buffer,
+                                          Int32 offset,
+                                          Int32 count,
+                                          CancellationToken cancellationToken);
 #endif
 
     /// <summary>
