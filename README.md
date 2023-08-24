@@ -1,7 +1,7 @@
 ![Logo](../release/logo.png)
 
 # Description
-... For a detailed description of all the contents of the library and their usage visit the [wiki](https://github.com/Narumikazuchi/InputOutput/wiki) page.
+This library provides a better interface for using generics for streams. For a detailed description of all the contents of the library and their usage visit the [wiki](https://github.com/Narumikazuchi/InputOutput/wiki) page.
   
 ## Installation
 [![NuGet](https://img.shields.io/nuget/v/Narumikazuchi.InputOutput.svg)](https://www.nuget.org/packages/Narumikazuchi.InputOutput)  
